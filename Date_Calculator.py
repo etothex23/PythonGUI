@@ -69,16 +69,21 @@ class DateCalculator:
         self.calculator['-INPUT-'].Widget.selection_range(0, tkinter.END)
         while True:  # The Event Loop
             self.e, self.v = self.calculator.read()
+            temp = self.v['-INPUT-']
+            print(temp.isdigit())
             print(self.e)
             print(self.v)
             if self.e == Sg.WIN_CLOSED or self.e == 'Exit':
                 break
-            elif self.e == '-INPUT-' and not self.v['-INPUT-'].isnumeric():
-                if self.v['-INPUT-'] == '': self.v['-INPUT-'] = 0
-            # self.calculator['-INPUT-'].Widget.config(insertbackgroundcolor='#d2ff93')
-            self.calculator['-INPUT-'].Widget.config(background='#d2ff93')
-            self.days_to_add = int(self.v['-INPUT-'])
-            self.set_and_calc()
+            elif self.e == '-INPUT-' and not temp.isdigit():
+                print('fuck')
+                self.calculator['-INPUT-'].update(value='0')
+                self.calculator['-INPUT-'].Widget.selection_range(0, tkinter.END)
+            elif temp.isdigit():
+                # self.calculator['-INPUT-'].Widget.config(insertbackgroundcolor='#d2ff93')
+                self.calculator['-INPUT-'].Widget.config(background='#d2ff93')
+                self.days_to_add = int(self.v['-INPUT-'])
+                self.set_and_calc()
             print(self.days_to_add)
             print(self.future_date)
 
